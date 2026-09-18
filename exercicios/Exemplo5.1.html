@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <link rel="stylesheet" type="text/css" href="5.1.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Esquerda: Listbox com as siglas -->
+      <div class="painel-esquerdo">
+        <select id="selectEstados" size="4">
+          <option value="0" selected>AL</option>
+          <option value="1">BA</option>
+          <option value="2">CE</option>
+          <option value="3">PE</option>
+        </select>
+      </div>
+
+      <!-- Meio: Botão -->
+      <div class="painel-meio">
+        <button id="btnDetalhes">Detalhes</button>
+      </div>
+
+      <!-- Direita: Quatro divs/quadros de informações -->
+      <div class="painel-direito">
+        <div class="card-info">
+          <strong>Capital</strong>
+          <div id="divCapital">-</div>
+        </div>
+        <div class="card-info">
+          <strong>Área</strong>
+          <div id="divArea">-</div>
+        </div>
+        <div class="card-info">
+          <strong>População</strong>
+          <div id="divPopulacao">-</div>
+        </div>
+        <div class="card-info">
+          <strong>Bandeira</strong>
+          <div id="divBandeira">-</div>
+        </div>
+      </div>
+    </div>
+    <script src="5.1.js"></script>
+  </body>
+</html>
