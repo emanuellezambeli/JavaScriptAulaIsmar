@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Combinatória</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #17120b, #49351f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Georgia, serif;
+}
+
+.quadro {
+    width: 100%;
+    max-width: 650px;
+    background: #ead8b5;
+    border: 8px solid #89683e;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px #0008;
+}
+
+h1 { color: #51391f; }
+
+.ilustracao {
+    font-size: 55px;
+    color: #76532c;
+    margin: 10px;
+}
+
+.bloco {
+    background: #f8edda;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 1px solid #c4a779;
+}
+
+h3 { color: #65451f; margin-top: 0; }
+
+.campos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input {
+    width: 110px;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+    border: 2px solid #a88755;
+    border-radius: 8px;
+    background: white;
+    outline: none;
+}
+
+input:focus { border-color: #65451f; }
+
+button {
+    padding: 12px 25px;
+    margin-top: 12px;
+    background: #76532c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #49351f;
+    transform: scale(1.04);
+}
+
+.resposta {
+    margin-top: 12px;
+    color: #51391f;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="quadro">
+
+    <div class="ilustracao">∑ ∞ π</div>
+    <h1>Análise Combinatória</h1>
+    <p>Escolha uma operação e informe os valores.</p>
+
+    <!-- PERMUTAÇÃO -->
+    <div class="bloco">
+        <h3>Permutação (P)</h3>
+        <p>P(n) = n!</p>
+        <div class="campos">
+            <input type="number" id="permN" placeholder="Valor n" min="0" step="1">
+        </div>
+        <button id="botaoPerm">Calcular</button>
+        <div class="resposta" id="resPerm">P = n!</div>
+    </div>
+
+    <!-- COMBINAÇÃO -->
+    <div class="bloco">
+        <h3>Combinação (C)</h3>
+        <p>C(n,k) = n! / [k!(n-k)!]</p>
+        <div class="campos">
+            <input type="number" id="combN" placeholder="Valor n" min="0" step="1">
+            <input type="number" id="combK" placeholder="Valor k" min="0" step="1">
+        </div>
+        <button id="botaoComb">Calcular</button>
+        <div class="resposta" id="resComb">C(n,k) = n! / [k!(n-k)!]</div>
+    </div>
+
+    <!-- ARRANJO -->
+    <div class="bloco">
+        <h3>Arranjo (A)</h3>
+        <p>A(n,k) = n! / (n-k)!</p>
+        <div class="campos">
+            <input type="number" id="arrN" placeholder="Valor n" min="0" step="1">
+            <input type="number" id="arrK" placeholder="Valor k" min="0" step="1">
+        </div>
+        <button id="botaoArr">Calcular</button>
+        <div class="resposta" id="resArr">A(n,k) = n! / (n-k)!</div>
+    </div>
+
+</div>
+
+<script>
+
+// FUNÇÃO FATORIAL
+
+function fatorial(numero) {
+    let resultado = 1;
+
+    for(let i = 1; i <= numero; i++) {
+        resultado = resultado * i;
+    }
+
+    return resultado;
+}
+
+// PERMUTAÇÃO
+
+document.getElementById("botaoPerm").addEventListener("click", function() {
+    const n = document.getElementById("permN").value;
+    const resposta = document.getElementById("resPerm");
+
+    if(n === "" || Number(n) < 0 || !Number.isInteger(Number(n)) || Number(n) > 170) {
+        resposta.innerText = "Digite um inteiro entre 0 e 170!";
+        return;
+    }
+
+    resposta.innerText = "P = " + fatorial(Number(n));
+});
+
+// COMBINAÇÃO
+
+document.getElementById("botaoComb").addEventListener("click", function() {
+    const n = document.getElementById("combN").value;
+    const k = document.getElementById("combK").value;
+    const resposta = document.getElementById("resComb");
+
+    if(n === "" || k === "" || !Number.isInteger(Number(n)) || !Number.isInteger(Number(k)) || Number(n) < 0 || Number(k) < 0 || Number(n) > 170) {
+        resposta.innerText = "Digite valores inteiros válidos!";
+        return;
+    }
+
+    if(Number(k) > Number(n)) {
+        resposta.innerText = "k deve ser menor ou igual a n!";
+        return;
+    }
+
+    const resultado = fatorial(Number(n)) / (fatorial(Number(k)) * fatorial(Number(n) - Number(k)));
+
+    resposta.innerText = "C(" + n + "," + k + ") = " + resultado;
+});
+
+// ARRANJO
+
+document.getElementById("botaoArr").addEventListener("click", function() {
+    const n = document.getElementById("arrN").value;
+    const k = document.getElementById("arrK").value;
+    const resposta = document.getElementById("resArr");
+
+    if(n === "" || k === "" || !Number.isInteger(Number(n)) || !Number.isInteger(Number(k)) || Number(n) < 0 || Number(k) < 0 || Number(n) > 170) {
+        resposta.innerText = "Digite valores inteiros válidos!";
+        return;
+    }
+
+    if(Number(k) > Number(n)) {
+        resposta.innerText = "k deve ser menor ou igual a n!";
+        return;
+    }
+
+    const resultado = fatorial(Number(n)) / fatorial(Number(n) - Number(k));
+
+    resposta.innerText = "A(" + n + "," + k + ") = " + resultado;
+});
+
+</script>
+
+</body>
+</html>
