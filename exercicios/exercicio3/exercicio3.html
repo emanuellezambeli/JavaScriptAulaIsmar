@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saudação</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #93c5fd);
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 25px #0002;
+            width: 280px;
+        }
+
+        .icone {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        h1 { color: #1e40af; }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            border: 2px solid #bfdbfe;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        input:focus { border-color: #2563eb; }
+
+        button {
+            margin-top: 18px;
+            padding: 12px 30px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover { background: #1e40af; }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="icone">👋</div>
+        <h1>Olá!</h1>
+        <p>Digite seu nome para receber uma saudação.</p>
+
+        <input type="text" id="nomeInput" placeholder="Digite seu nome">
+
+        <br>
+
+        <button onclick="cumprimentar()">Enviar</button>
+    </div>
+
+    <script>
+        function cumprimentar() {
+            const nome = document.getElementById("nomeInput").value.trim();
+
+            if (nome === "") {
+                alert("Por favor, digite seu nome!");
+            } else {
+                alert("Oie, " + nome + "! Seja bem-vindo(a)!");
+            }
+        }
+    </script>
+
+</body>
+</html>
