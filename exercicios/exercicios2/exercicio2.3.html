@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Função Fatorial</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #171717, #443525);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Georgia, serif;
+            padding: 20px;
+        }
+
+        .quadro {
+            background: #ead8b5;
+            border: 8px solid #89683e;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 10px 30px #0008;
+        }
+
+        h1 { color: #51391f; }
+
+        svg {
+            width: 100px;
+            height: 100px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 22px;
+            text-align: center;
+            border: 2px solid #a88755;
+            border-radius: 8px;
+            background: #fff9e9;
+            outline: none;
+        }
+
+        input:focus { border-color: #65451f; }
+
+        button {
+            padding: 13px 35px;
+            background: #76532c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #49351f;
+            transform: scale(1.05);
+        }
+
+        #resultado {
+            margin-top: 25px;
+            color: #51391f;
+            font-size: 23px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        #mensagem {
+            color: #a12b1c;
+            font-family: Arial, sans-serif;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quadro">
+
+        <!-- ILUSTRAÇÃO -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="47" fill="#b99763"/>
+            <circle cx="50" cy="50" r="40" fill="#ead8b5" stroke="#76532c" stroke-width="2"/>
+            <text x="50" y="62" text-anchor="middle" font-size="38" fill="#51391f" font-family="Georgia">n!</text>
+        </svg>
+
+        <h1>Calculadora Fatorial</h1>
+        <p>Digite um número para descobrir seu fatorial.</p>
+
+        <input type="number" id="valor" placeholder="Digite um número" min="0" step="1">
+
+        <button id="calcular">Calcular</button>
+
+        <div id="resultado"></div>
+        <div id="mensagem"></div>
+
+    </div>
+
+    <script>
+        const valor = document.getElementById("valor");
+        const resultadoTela = document.getElementById("resultado");
+        const mensagem = document.getElementById("mensagem");
+
+        document.getElementById("calcular").addEventListener("click", function() {
+
+            const x = Number(valor.value);
+            resultadoTela.innerText = "";
+            mensagem.innerText = "";
+
+            if (valor.value === "" || x < 0 || !Number.isInteger(x)) {
+                mensagem.innerText = "Digite um número inteiro não negativo!";
+                return;
+            }
+
+            if (x > 170) {
+                mensagem.innerText = "Digite um número de até 170!";
+                return;
+            }
+
+            let fatorial = 1;
+
+            for (let i = 1; i <= x; i++) {
+                fatorial = fatorial * i;
+            }
+
+            resultadoTela.innerText = x + "! = " + fatorial;
+
+        });
+    </script>
+
+</body>
+</html>
