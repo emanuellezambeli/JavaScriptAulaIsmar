@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estados do Sudeste</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f3eee8;
+  padding: 30px;
+}
+
+.painel {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+h2 {
+  color: #704b35;
+  text-align: center;
+}
+
+input {
+  width: 95%;
+  padding: 9px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 9px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #80583e;
+  color: white;
+}
+
+.estado {
+  background: #f5eee7;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
+.estado img {
+  width: 65px;
+  display: block;
+  margin: 8px 0;
+}
+
+.excluir {
+  background: #c75b52;
+}
+
+.salvar {
+  background: #238b57;
+  width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="painel">
+  <h2>🇧🇷 Estados do Sudeste</h2>
+
+  <input id="sigla" placeholder="Sigla (ex: ES)">
+  <input id="capital" placeholder="Capital">
+  <input id="area" placeholder="Área">
+  <input id="populacao" placeholder="População">
+  <input id="bandeira" placeholder="Link da bandeira">
+
+  <button onclick="cadastrarEstado()">Cadastrar Estado</button>
+
+  <div id="listaEstados"></div>
+
+  <button class="salvar" onclick="salvarJSON()">Exportar JSON</button>
+</div>
+
+<script>
+let estados = [];
+
+// Carregar o arquivo JSON
+async function carregarJSON() {
+  try {
+    let resposta = await fetch("estados.json");
+    estados = await resposta.json();
+    mostrarEstados();
+  } catch (erro) {
+    alert("Não foi possível carregar o arquivo JSON. Abra usando um servidor local.");
+  }
+}
+
+// Mostrar os estados
+function mostrarEstados() {
+  let lista = document.getElementById("listaEstados");
+  lista.innerHTML = "";
+
+  estados.forEach(function(estado, index) {
+    let item = document.createElement("div");
+    item.className = "estado";
+
+    item.innerHTML = `
+      <h3>${estado.sigla} - ${estado.capital}</h3>
+      <p>Área: ${estado.area}</p>
+      <p>População: ${estado.populacao}</p>
+      <img src="${estado.bandeira}" alt="Bandeira de ${estado.sigla}">
+    `;
+
+    let botao = document.createElement("button");
+    botao.textContent = "Excluir";
+    botao.className = "excluir";
+
+    botao.onclick = function() {
+      estados.splice(index, 1);
+      mostrarEstados();
+    };
+
+    item.appendChild(botao);
+    lista.appendChild(item);
+  });
+}
+
+// Cadastrar novo estado
+function cadastrarEstado() {
+  let novoEstado = {
+    sigla: document.getElementById("sigla").value.trim().toUpperCase(),
+    capital: document.getElementById("capital").value.trim(),
+    area: document.getElementById("area").value.trim(),
+    populacao: document.getElementById("populacao").value.trim(),
+    bandeira: document.getElementById("bandeira").value.trim()
+  };
+
+  if (!novoEstado.sigla || !novoEstado.capital ||
+      !novoEstado.area || !novoEstado.populacao ||
+      !novoEstado.bandeira) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  if (estados.some(e => e.sigla === novoEstado.sigla)) {
+    alert("Esse estado já está cadastrado!");
+    return;
+  }
+
+  estados.push(novoEstado);
+  mostrarEstados();
+
+  document.querySelectorAll("input").forEach(input => input.value = "");
+}
+
+// Exportar para arquivo JSON
+function salvarJSON() {
+  let dados = JSON.stringify(estados, null, 2);
+  let arquivo = new Blob([dados], {type: "application/json"});
+  let link = document.createElement("a");
+
+  link.href = URL.createObjectURL(arquivo);
+  link.download = "estados.json";
+  link.click();
+
+  URL.revokeObjectURL(link.href);
+}
+
+carregarJSON();
+</script>
+
+</body>
+</html>
