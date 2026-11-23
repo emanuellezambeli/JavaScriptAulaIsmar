@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Produtos</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f3eee8;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.painel {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 4px 12px #0002;
+}
+
+h2 {
+  color: #704b35;
+  text-align: center;
+}
+
+input {
+  width: 94%;
+  padding: 10px;
+  margin: 7px 0;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.cadastrar {
+  background: #80583e;
+  color: white;
+  width: 100%;
+}
+
+li {
+  background: #f5eee7;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.excluir {
+  background: #c75b52;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="painel">
+  <h2>🛍️ Cadastro de Produtos</h2>
+
+  <input type="text" id="inputNome" placeholder="Nome do produto">
+  <input type="number" id="inputPreco" placeholder="Preço (R$)">
+
+  <button class="cadastrar" onclick="cadastrarProduto()">Cadastrar Produto</button>
+
+  <ul id="listaProdutos"></ul>
+</div>
+
+<script>
+// Array para armazenar os produtos em memória
+let produtos = [];
+
+function cadastrarProduto() {
+  let nome = document.getElementById("inputNome").value.trim();
+  let preco = parseFloat(document.getElementById("inputPreco").value);
+
+  if (nome === "" || isNaN(preco) || preco <= 0) {
+    alert("Preencha os campos corretamente!");
+    return;
+  }
+
+  // Cria um objeto produto
+  let produto = {
+    nome: nome,
+    preco: preco
+  };
+
+  // Armazena o objeto no array
+  produtos.push(produto);
+
+  // Atualiza a lista na tela
+  mostrarProdutos();
+
+  document.getElementById("inputNome").value = "";
+  document.getElementById("inputPreco").value = "";
+}
+
+function mostrarProdutos() {
+  let lista = document.getElementById("listaProdutos");
+  lista.innerHTML = "";
+
+  produtos.forEach(function(produto, index) {
+    let item = document.createElement("li");
+
+    item.textContent = produto.nome + " - R$ " + produto.preco.toFixed(2);
+
+    let botao = document.createElement("button");
+    botao.textContent = "Excluir";
+    botao.className = "excluir";
+
+    botao.onclick = function() {
+      produtos.splice(index, 1);
+      mostrarProdutos();
+    };
+
+    item.appendChild(botao);
+    lista.appendChild(item);
+  });
+}
+</script>
+
+</body>
+</html>
