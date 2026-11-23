@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urna Hanna-Barbera</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>🗳️ Eleições Hanna-Barbera</h2>
+  <p class="subtitulo">Escolha seu candidato para as eleições!</p>
+
+  <div class="form-group">
+    <label for="selectPersonagem">Selecione o Candidato:</label>
+    <select id="selectPersonagem" onchange="selecionarPersonagem()">
+      <option value="">-- Escolha um personagem --</option>
+    </select>
+  </div>
+
+  <div id="painelDetalhes" class="card-preview" style="display:none;">
+    <img id="fotoCandidato" src="" alt="Foto do candidato">
+    <h3 id="nomeCandidato">---</h3>
+    <p>Idade: <strong id="idadeCandidato">--</strong> anos</p>
+  </div>
+
+  <div class="form-group">
+    <label for="selectCargo">Cargo Pretendido:</label>
+    <select id="selectCargo" onchange="validarElegibilidade()">
+      <option value="">-- Escolha o cargo --</option>
+      <option value="Presidente">Presidente</option>
+      <option value="Senador(a)">Senador(a)</option>
+      <option value="Deputado(a) Federal">Deputado(a) Federal</option>
+      <option value="Deputado(a) Estadual">Deputado(a) Estadual</option>
+    </select>
+  </div>
+
+  <div id="mensagemStatus" class="status" style="display:none;"></div>
+
+  <button id="btnVotar" onclick="registrarVoto()" disabled>
+    Confirmar Voto
+  </button>
+
+  <h3>📄 Comprovante de Voto (JSON)</h3>
+  <div id="jsonResult" class="json-output">Nenhum voto registrado.</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
